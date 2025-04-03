@@ -5,14 +5,17 @@ const dynamodb = new AWS.DynamoDB({
   apiVersion: "2012-08-10"
 });
 
+const tableName = process.env.TABLE_COURSES;
+
 exports.handler = (event, context, callback) => {
   const params = {
+    TableName: tableName,
     Key: {
       id: {
         S: event.id
       }
     },
-    TableName: process.env.TABLE_NAME
+
   };
   dynamodb.getItem(params, (err, data) => {
     if (err) {
